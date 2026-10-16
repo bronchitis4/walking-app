@@ -29,7 +29,11 @@ namespace RoomGame
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
             // Only take keyboard input while the game canvas has focus, so browser shortcuts keep working elsewhere.
-            WebGLInput.captureAllKeyboardInput = false;
+            // WebGLInput lives in UnityEngine.WebGLModule, which isn't referenced at compile time here.
+            var webGLInput = System.Type.GetType("UnityEngine.WebGLInput, UnityEngine.WebGLModule");
+            var capture = webGLInput?.GetProperty("captureAllKeyboardInput", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+            if (capture != null) capture.SetValue(null, false);
+            else Debug.LogWarning("WebGLInput.captureAllKeyboardInput not found");
 #endif
         }
 

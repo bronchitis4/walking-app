@@ -1,8 +1,11 @@
 name: Build WebGL and deploy to GitHub Pages
 
+# Manual only: the site is currently deployed from the gh-pages branch (local build).
+# To build in CI instead, add UNITY_LICENSE/UNITY_EMAIL/UNITY_PASSWORD secrets,
+# restore the push trigger below and set Pages source to "GitHub Actions".
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   workflow_dispatch:
 
 permissions:

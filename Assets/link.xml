@@ -1,0 +1,6 @@
+<linker>
+  <!-- Accessed via reflection in RoomGame.ConnectUI -->
+  <assembly fullname="UnityEngine.WebGLModule">
+    <type fullname="UnityEngine.WebGLInput" preserve="all" />
+  </assembly>
+</linker>
