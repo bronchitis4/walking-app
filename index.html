@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Autumn Park</title>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #2e2128; }
+    #unity-canvas { width: 100%; height: 100%; display: block; background: #2e2128; outline: none; }
+    #loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fbd38d; font: 16px sans-serif; gap: 12px; }
+    #bar { width: 240px; height: 8px; background: #4a3434; border-radius: 4px; overflow: hidden; }
+    #fill { width: 0; height: 100%; background: #f4a95e; }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <div id="loading"><div>Autumn Park</div><div id="bar"><div id="fill"></div></div></div>
+  <script>
+    var canvas = document.getElementById("unity-canvas");
+    // Click on the game to give it keyboard focus; clicking elsewhere returns keys to the browser.
+    canvas.addEventListener("mousedown", function () { canvas.focus(); });
+    var script = document.createElement("script");
+    script.src = "Build/WebGL.loader.js";
+    script.onload = function () {
+      createUnityInstance(canvas, {
+        dataUrl: "Build/WebGL.data",
+        frameworkUrl: "Build/WebGL.framework.js",
+        codeUrl: "Build/WebGL.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "RoomGame",
+        productName: "Autumn Park",
+        productVersion: "0.1.0",
+        matchWebGLToCanvasSize: true,
+        devicePixelRatio: 1
+      }, function (p) {
+        document.getElementById("fill").style.width = (p * 100) + "%";
+      }).then(function () {
+        document.getElementById("loading").remove();
+        canvas.focus();
+      }).catch(function (e) { alert(e); });
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>
